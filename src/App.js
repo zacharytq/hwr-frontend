@@ -1,6 +1,9 @@
+import TopBar from "./TopBar";
+
 function App() {
   return (
-    <div className="App">
+    <div className="flex">
+      <TopBar />
     </div>
   );
 }
