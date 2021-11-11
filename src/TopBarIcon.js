@@ -1,8 +1,9 @@
-const TopBarIcon = ({ icon, text = "This is a tooltip!" }) => {
+const TopBarIcon = ({ icon, text = "This is a tooltip!", classN = "" }) => {
+    let classes = `${classN} topbar-tooltip group-hover:scale-100`
     return (
         <div className="topbar-icon group">
             {icon}
-            <span className="topbar-tooltip group-hover:scale-100">
+            <span className={classes}>
                 {text}
             </span>
         </div>
