@@ -15,4 +15,10 @@
              bg-gray-800 transition-all duration-100 origin-right scale-0;
 
     }
+
+    .inset-center {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
 }
