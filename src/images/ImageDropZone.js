@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { useDropzone } from "react-dropzone"
 import { MdUploadFile } from "react-icons/md";
 
 const ImageDropZone = (props) => {
+    const [allowUpload, setAllowUpload] = useState(false)
+    
     const {
         acceptedFiles,
         fileRejections,
@@ -9,16 +12,17 @@ const ImageDropZone = (props) => {
         getInputProps
     } = useDropzone({
         accept: 'image/jpeg, image/png',
-        maxFiles: 1
+        maxFiles: 1,
+        onDropAccepted: () => setAllowUpload(true)
     })
 
-    const image = acceptedFiles.map(file => (
+    const imageBlock = acceptedFiles.map(file => (
         <li key={file.path}>
             {file.name} - {file.size} bytes
         </li>
     ))
 
-    const rejected = fileRejections.map(({ file, errors }) => (
+    const rejectedBlock = fileRejections.map(({ file, errors }) => (
         <li key={file.path}>
             {file.path}
             <ul>
@@ -27,17 +31,17 @@ const ImageDropZone = (props) => {
         </li>
     ))
 
-    const infoBlock = rejected.length > 0 ? (
+    const infoBlock = rejectedBlock.length > 0 ? (
         <>
             <h4>File Upload Failed</h4>
             <ul>
-                {rejected}
+                {rejectedBlock}
             </ul>
         </>
     ) : (
         <>
             <h4>Selected Image:</h4>
-            {image}
+            {imageBlock}
         </>
     )
 
@@ -54,7 +58,7 @@ const ImageDropZone = (props) => {
             <div className='relative flex flex-col p-4 justify-items-center items-center'>
                 {infoBlock}
             </div>
-            <button class="inset-center bottom-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button disabled={!allowUpload} class="inset-center bottom-4 bg-blue-500 hover:bg-blue-700 disabled:opacity-50 disabled:bg-blue-500 text-white font-bold py-2 px-4 rounded">
                 Upload
             </button>
         </>
